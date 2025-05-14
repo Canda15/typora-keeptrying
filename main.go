@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"typora-free/serve"
-	"typora-free/utils"
+	"typora-keeptrying/serve"
+	"typora-keeptrying/utils"
 )
 
 func main() {
@@ -51,8 +51,8 @@ func main() {
 			fmt.Println("未知命令: ", command)
 			fmt.Println("Unknown command:", command)
 
-			fmt.Println("可用命令: install | start | stop | restart")
-			fmt.Println("Available commands: install | start | stop | restart")
+			fmt.Println("可用命令: install | del | start | stop | restart")
+			fmt.Println("Available commands: install | del | start | stop | restart")
 		}
 		return
 	}

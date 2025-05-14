@@ -10,12 +10,14 @@ import (
 
 type Config struct {
 	ProfilePath    string `json:"profile_path"` // C:\Users\Administrator\AppData\Roaming\Typora
-	InstallDirPath string `json:"install_path"` // C:\Typora_AlwaysFree
+	InstallDirPath string `json:"install_path"` // C:\Typora_KeepTrying
 	SID            string `json:"security_id"`  // S-1-5-21-2495842453-42734561234-229025492-1006
 }
 
-var DefaultInstall = `C:\Typora_AlwaysFree`
+var DefaultInstall = `C:\Typora_KeepTrying`
 var CFG *Config = &Config{}
+
+const ServiceName = "TyporaFreeService"
 
 func InitConfig(server bool) error {
 	var err error

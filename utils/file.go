@@ -117,11 +117,11 @@ func FileExists(path string) bool {
 	return false
 }
 
-// 生成清理bat 等待程序占用解除后删除文件夹
+// 生成bat 等待程序占用解除后清理残留
 func SelfDelete() error {
 	batContent := `@echo off
 :loop
-tasklist | findstr /i "typora_free.exe" >nul
+tasklist | findstr /i "typora-keeptrying.exe" >nul
 if not errorlevel 1 (
     timeout /t 1 >nul
     goto loop

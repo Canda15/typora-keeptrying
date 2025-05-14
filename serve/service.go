@@ -6,13 +6,11 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-	"typora-free/utils"
+	"typora-keeptrying/utils"
 
 	"golang.org/x/sys/windows/svc"
 	"golang.org/x/sys/windows/svc/mgr"
 )
-
-const serviceName = "TyporaFreeService"
 
 func ControlService(action string) {
 	m, err := mgr.Connect()
@@ -23,7 +21,7 @@ func ControlService(action string) {
 	}
 	defer m.Disconnect()
 
-	s, err := m.OpenService(serviceName)
+	s, err := m.OpenService(utils.ServiceName)
 	if err != nil {
 		utils.Log("打开服务失败:", err)
 		utils.Log("Failed to open service:", err)
@@ -48,7 +46,7 @@ func ControlService(action string) {
 }
 
 func RunService() {
-	err := svc.Run(serviceName, &myService{})
+	err := svc.Run(utils.ServiceName, &myService{})
 	if err != nil {
 		utils.Log("服务运行失败:", err)
 		utils.Log("Service failed to run:", err)
@@ -56,7 +54,7 @@ func RunService() {
 }
 
 func ExeInstall() {
-	exists, err := ServiceExists(serviceName)
+	exists, err := ServiceExists(utils.ServiceName)
 	if err != nil {
 		utils.Log("获取服务状态失败:", err)
 		utils.Log("Failed to get service status:", err)
@@ -74,7 +72,7 @@ func ExeInstall() {
 		return
 	}
 
-	//./typora-free.exe -> C:/Typora_AlwaysFree/typora-free.exe
+	//./typora-keeptrying.exe -> C:/Typora_KeepTrying/typora-keeptrying.exe
 	exePath, err := os.Executable()
 	if err != nil {
 		utils.Log("获取执行路径失败:", err)
@@ -119,7 +117,7 @@ func registerService(exePath string) error {
 	defer m.Disconnect()
 
 	// 尝试打开现有的服务
-	s, err := m.OpenService(serviceName)
+	s, err := m.OpenService(utils.ServiceName)
 	if err == nil {
 		s.Close()
 		utils.Log("服务已存在")
@@ -128,7 +126,7 @@ func registerService(exePath string) error {
 	}
 
 	// 创建新服务
-	s, err = m.CreateService(serviceName, exePath, mgr.Config{
+	s, err = m.CreateService(utils.ServiceName, exePath, mgr.Config{
 		DisplayName: "Typora Free Service",
 		StartType:   mgr.StartAutomatic,
 	})
@@ -155,7 +153,7 @@ func cleanupOldService() error {
 	}
 	defer m.Disconnect()
 
-	s, err := m.OpenService(serviceName)
+	s, err := m.OpenService(utils.ServiceName)
 	if err != nil {
 		utils.Log(err)
 		return nil

@@ -1,4 +1,4 @@
-module typora-free
+module typora-keeptrying
 
 go 1.23.0
 
