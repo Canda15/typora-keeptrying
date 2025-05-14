@@ -32,4 +32,4 @@
 }
 ```
 
-如果运行目录中没有设置或不存在 `config.json` 则默认 安装到 `C:\\Typora_KeepTrying`
+如果运行目录中没有设置或不存在 `config.json` 则默认生成配置并安装到 `C:\\Typora_KeepTrying`
